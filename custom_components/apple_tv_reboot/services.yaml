@@ -1,0 +1,13 @@
+restart_and_wait:
+  target:
+    entity:
+      integration: apple_tv_reboot
+      domain: button
+  fields:
+    timeout:
+      default: 300
+      selector:
+        number:
+          min: 60
+          max: 900
+          unit_of_measurement: s

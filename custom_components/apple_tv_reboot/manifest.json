@@ -1,0 +1,12 @@
+{
+  "domain": "apple_tv_reboot",
+  "name": "Apple TV Reboot",
+  "codeowners": ["@usersaynoso"],
+  "config_flow": true,
+  "documentation": "https://github.com/usersaynoso/Apple-TV-Reboot-for-Home-Assistant",
+  "integration_type": "service",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/usersaynoso/Apple-TV-Reboot-for-Home-Assistant/issues",
+  "requirements": [],
+  "version": "0.1.1"
+}

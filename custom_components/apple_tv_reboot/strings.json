@@ -1,0 +1,43 @@
+{
+  "config": {
+    "step": {
+      "discover": {
+        "title": "Find your Apple TV",
+        "description": "On the Apple TV open Settings > Remotes and Devices > Remote App and Devices and leave that screen showing, then press Submit."
+      },
+      "pick": {
+        "title": "Choose an Apple TV",
+        "data": {
+          "identifier": "Apple TV"
+        }
+      },
+      "pin": {
+        "title": "Enter the PIN",
+        "description": "Type the PIN shown on {name}.",
+        "data": {
+          "pin": "PIN"
+        }
+      }
+    },
+    "progress": {
+      "install": "Installing the pymobiledevice3 runtime. This takes about a minute."
+    },
+    "abort": {
+      "install_failed": "Could not install the runtime: {error}",
+      "pair_failed": "Pairing failed. Keep the Apple TV on its pairing screen, check the PIN, and try again.",
+      "already_configured": "This Apple TV is already set up."
+    }
+  },
+  "services": {
+    "restart_and_wait": {
+      "name": "Restart and wait",
+      "description": "Restart the Apple TV and return once it has gone down and come back, or fail after the timeout.",
+      "fields": {
+        "timeout": {
+          "name": "Timeout",
+          "description": "Seconds to wait for the Apple TV to come back."
+        }
+      }
+    }
+  }
+}
