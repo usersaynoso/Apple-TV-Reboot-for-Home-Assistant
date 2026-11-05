@@ -61,10 +61,11 @@ tvOS 17 and later supports the "remote pairing" that Xcode uses for wireless deb
 PIN shown on the Apple TV. On each restart it opens a tunnel to the Apple TV and sends the device's diagnostics `Restart`
 request, using [pymobiledevice3](https://github.com/doronz88/pymobiledevice3). The Apple TV is down for about 30 to 40 seconds.
 
-pymobiledevice3 cannot be a normal Home Assistant requirement: its dependencies clash with Home Assistant's, and one of them
-(`pylzss`) needs a compiler on Alpine. So on first setup the integration builds its own virtualenv in
-`<config>/atv_reboot/venv` from the pinned `requirements-runtime.txt`, and runs `atv_helper.py` with that venv's Python. That
-list leaves out `pylzss`, which is only used for firmware images. Pairing records are kept under `<config>/atv_reboot/home`, so
+pymobiledevice3 is not a manifest requirement: it declares the dependencies of its whole command-line tool (about 80
+packages, including IPython, FastAPI, Uvicorn and PyAV), and Home Assistant would install all of them into its own
+environment. So on first setup the integration builds its own virtualenv in `<config>/atv_reboot/venv` from the pinned
+`requirements-runtime.txt`, installed with `--no-deps`, and runs `atv_helper.py` with that venv's Python. That list is only
+the 30 packages that remote pairing, discovery, the tunnel and the diagnostics service actually import. Pairing records are kept under `<config>/atv_reboot/home`, so
 they survive container recreation and are included in Home Assistant backups. Treat that folder as sensitive: the records
 let a host that holds them control the paired Apple TV.
 
