@@ -24,6 +24,8 @@
     },
     "abort": {
       "install_failed": "Could not install the runtime: {error}",
+      "runtime_check_failed": "Could not check the pymobiledevice3 runtime: {error}",
+      "discover_failed": "Could not search for Apple TVs: {error}. Check the Apple TV is on and on the same network, then try again.",
       "pair_failed": "Pairing failed. Keep the Apple TV on its pairing screen, check the PIN, and try again.",
       "already_configured": "This Apple TV is already set up."
     }

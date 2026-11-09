@@ -58,8 +58,15 @@ class AppleTvRebootConfigFlow(ConfigFlow, domain=DOMAIN):
         self._proc: asyncio.subprocess.Process | None = None
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
-        if self._install_task is None and await runtime_ready(self.hass):
-            return await self.async_step_discover()
+        if self._install_task is None:
+            try:
+                ready = await runtime_ready(self.hass)
+            except AtvRuntimeError as err:
+                return self.async_abort(
+                    reason="runtime_check_failed", description_placeholders={"error": str(err)}
+                )
+            if ready:
+                return await self.async_step_discover()
 
         if self._install_task is None:
             self._install_task = self.hass.async_create_task(install_runtime(self.hass))
@@ -80,7 +87,12 @@ class AppleTvRebootConfigFlow(ConfigFlow, domain=DOMAIN):
         )
 
     async def async_step_discover(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
-        result = await run_helper(self.hass, "discover", timeout=DISCOVER_TIMEOUT)
+        try:
+            result = await run_helper(self.hass, "discover", timeout=DISCOVER_TIMEOUT)
+        except AtvRuntimeError as err:
+            return self.async_abort(
+                reason="discover_failed", description_placeholders={"error": str(err)}
+            )
         configured = {entry.unique_id for entry in self._async_current_entries()}
         self._devices = {
             d["identifier"]: d

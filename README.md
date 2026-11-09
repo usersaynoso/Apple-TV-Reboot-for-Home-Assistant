@@ -49,7 +49,7 @@ data:
 ## Requirements
 
 - tvOS 17 or later. The Apple TV only offers pairing while the Remote App and Devices screen is open.
-- Home Assistant 2024.6 or later.
+- Home Assistant 2024.11 or later.
 - Home Assistant must be able to create a network tunnel interface: it needs root, `/dev/net/tun` and host networking.
   The Home Assistant Container install run with `--privileged --network host` meets this. Other install types are untested.
 - Home Assistant and the Apple TV on the same network, with mDNS working between them.
